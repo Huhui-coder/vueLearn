@@ -8,7 +8,7 @@ class Dep {
         // 用来存放Watcher对象的数组
         this.subs = [];
     }
-    // 在subs 中 添加一个 Watcher 对象
+    // 在 subs 中 添加一个 Watcher 对象
     addSub(sub) {
         this.subs.push(sub)
     }
@@ -19,7 +19,7 @@ class Dep {
         })
     }
 }
-// 观察者 Watcher 
+// 观察者 Watcher
 
 class Watcher {
     constructor() {
@@ -49,7 +49,7 @@ function defineReactive(obj, key, val) {
     Object.defineProperty(obj, key, {
         enumerable: true,
         configurable: true,
-        get: function reactGetter() {
+        get: function reactiveGetter() {
             dep.addSub(Dep.target)
             return val;
         },
@@ -68,13 +68,17 @@ class Vue {
         this._data = options.data;
         observer(this._data)
         new Watcher()
+        // 必须是先通过 getter 收集 依赖之后, 再使用 setter 触发的时候 才会正确的触发，执行 notify函数
         console.log('render~', this._data.test)
+        console.log('render~', this._data.name)
     }
 }
 
 let o = new Vue({
     data: {
-        test: 'I am test'
+        test: 'I am test',
+        name: 'hit'
     }
 });
 o._data.test = 'I am hit'
+o._data.name = 'huhui'
