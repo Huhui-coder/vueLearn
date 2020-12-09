@@ -8,7 +8,7 @@ class Dep {
         // 用来存放Watcher对象的数组
         this.subs = [];
     }
-    // 在 subs 中 添加一个 Watcher 对象
+    // 在 subs 中 添加一个 Watcher 对象 
     addSub(sub) {
         this.subs.push(sub)
     }
